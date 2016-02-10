@@ -1,0 +1,661 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+\DeclareMathOperator{\Tr}{Tr}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 3cm
+\rightmargin 3cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Derivation of CTAUX Algorithm
+\end_layout
+
+\begin_layout Author
+Joseph Paki
+\end_layout
+
+\begin_layout Section*
+Purpose
+\end_layout
+
+\begin_layout Standard
+These notes present a largely self-contained derivation of the Continuous
+ Time Auxilliary Field Monte Carlo algorithm used for simulating the Hubbard
+ model.
+ In particular, this document should prove to the reader the validity of
+ the following expressions for the parition function, 
+\begin_inset Formula $Z$
+\end_inset
+
+, and Greens function, 
+\begin_inset Formula $G_{\sigma}(k,i\omega_{n})$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Z=\sum_{k=0}^{\infty}\sum_{i_{k},\ldots i_{1}}\sum_{s_{i_{k}},\ldots s_{i_{1}}=\pm1}\int_{0}^{\beta}d\tau_{1}\ldots\int_{\tau_{k-1}}^{\beta}d\tau_{k}\left(\frac{K}{2\beta}\right)^{k}Z_{k}\left(\left\{ i_{j},s_{j},\tau_{j}\right\} \right)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\frac{Z_{k}\left(\left\{ i_{j},s_{j},\tau_{j}\right\} \right)}{Z_{0}}=\prod_{\sigma=\uparrow,\downarrow}\det N_{\sigma}^{-1}\left(\left\{ i_{j},s_{j},\tau_{j}\right\} \right)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+N_{\sigma}^{-1}\left(\left\{ i_{j},s_{j},\tau_{j}\right\} \right)=e^{V_{\sigma}(\left\{ s_{i}\right\} )}-G_{0\sigma}\left(\left\{ i_{j},\tau_{j}\right\} \right)\left(e^{V_{\sigma}(\left\{ s_{i}\right\} )}-1\right)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+e^{V_{\sigma}(\left\{ s_{i}\right\} )}=diag\left(e^{\gamma s_{i_{1}}\sigma},e^{\gamma s_{i_{2}}\sigma},\ldots,e^{\gamma s_{i_{n}}\sigma}\right)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\left[G_{0\sigma}\left(\left\{ i_{j},\tau_{j}\right\} \right)\right]_{ab}=\begin{cases}
+g_{0i_{a}i_{b}\sigma}(\tau_{a}-\tau_{b}), & i\neq j\\
+g_{0i_{a}i_{b}\sigma}(0^{+}), & i=j
+\end{cases}\; a,b=1..k
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+G_{\sigma}(k,i\omega_{n})=\mathcal{{G}}_{0\sigma}(k,i\omega_{n})-\frac{\mathcal{{G}}_{0\sigma}(k,i\omega_{n})^{2}}{\beta}\sum_{pq}e^{i\omega_{n}\tau_{p}}M_{pq}e^{-i\omega_{n}\tau_{q}}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+M_{pq}=\left[\left(e^{V_{\sigma}(\left\{ s_{i}\right\} )}-1\right)N_{\sigma}\left(\left\{ i_{j},s_{j},\tau_{j}\right\} \right)\right]_{pq}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We use the notation 
+\begin_inset Formula $\left\{ i_{j},s_{i_{j}},\tau_{j}\right\} $
+\end_inset
+
+.
+ For an order 
+\begin_inset Formula $k$
+\end_inset
+
+ term in an expansion, this indicates a set of 
+\begin_inset Formula $j=1...k$
+\end_inset
+
+ triplets, each involving a lattice site 
+\begin_inset Formula $i_{j},$
+\end_inset
+
+an auxilliary spin, 
+\begin_inset Formula $s_{j}$
+\end_inset
+
+, and an imaginary time, 
+\begin_inset Formula $\tau_{j}$
+\end_inset
+
+.
+ Quantities with a subscript 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ indicate a dependence on real spin, a subscript 
+\begin_inset Formula $0$
+\end_inset
+
+ indicates the non-interacting quantity, 
+\begin_inset Formula $\left[\mathcal{O}\right]_{ab}$
+\end_inset
+
+indicates that 
+\begin_inset Formula $\mathcal{O}$
+\end_inset
+
+ is a matrix and that we need the 
+\begin_inset Formula $(a,b)$
+\end_inset
+
+ element, and 
+\begin_inset Formula $\mathcal{O}(\left\{ i_{j},s_{j},\tau_{j}\right\} )$
+\end_inset
+
+ indicates a quantity that depends on the set of variables 
+\begin_inset Formula $\left\{ i_{j},s_{j},\tau_{j}\right\} $
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section*
+Hubbard Model
+\end_layout
+
+\begin_layout Standard
+We are interested in deriving CTAUX for the Hubbard model.
+ The Hubbard Hamiltonian, with the chemical potential shifted such that
+ 
+\begin_inset Formula $\mu=0$
+\end_inset
+
+ is half-filling, is given by
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+H=-t\sum_{\sigma<i,j>}(c_{i\sigma}^{\dagger}c_{j\sigma}+c_{j\sigma}^{\dagger}c_{i\sigma})+U\sum_{i}\left(n_{i\uparrow}n_{i\downarrow}-\frac{n_{i\uparrow}+n_{i\downarrow}}{2}\right)-\mu\sum_{i}(n_{i\uparrow}+n_{i\downarrow}).
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For later convenience, we break up the Hamiltonian into free and interacting
+ parts, as well as add and subtract a constant, 
+\begin_inset Formula $\frac{NK}{\beta}$
+\end_inset
+
+, where 
+\begin_inset Formula $N$
+\end_inset
+
+ is the number of lattice sites.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+H=H_{0}+H_{U}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+H_{U}=U\sum_{i}\left(n_{i\uparrow}n_{i\downarrow}-\frac{n_{i\uparrow}+n_{i\downarrow}}{2}\right)-\frac{NK}{\beta}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+H_{0}=-t\sum_{\sigma<i,j>}(c_{i\sigma}^{\dagger}c_{j\sigma}+c_{j\sigma}^{\dagger}c_{i\sigma})+\frac{NK}{\beta}-\mu\sum_{i}(n_{i\uparrow}+n_{i\downarrow})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+Interaction Picture
+\end_layout
+
+\begin_layout Standard
+We are about to use the interaction picture to perform series expansions.
+ In the interaction picture, time dependent operators are defined as
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+O(\tau)=e^{\tau H_{0}}Oe^{-\tau H_{0}}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now we define a new operator, 
+\begin_inset Formula $A(\beta)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+A(\beta)=e^{\beta H_{0}}e^{-\beta H}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If we differentiate 
+\begin_inset Formula $A(\beta)$
+\end_inset
+
+, we get
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\frac{dA}{d\beta}=H_{0}A(\beta)-HA(\beta)=-H_{U}(\beta)A(\beta)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As demonstrated in Peskin and Schroeder (page 84), proper integration requires
+ time-ordering.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+A(\beta)=T_{\tau}e^{-\int_{0}^{\beta}d\tau H_{U}(\tau)}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Note that we can write
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+e^{-\beta H}=e^{-\beta H_{0}}e^{\beta H_{0}}e^{-\beta H}=e^{-\beta H_{0}}A(\beta)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+Partition Funtion Expansion
+\end_layout
+
+\begin_layout Standard
+The partition function 
+\begin_inset Formula $Z$
+\end_inset
+
+ can be written as
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Z=\Tr\left[e^{-\beta H}\right]=\Tr\left[e^{-\beta H_{0}}A(\beta)\right]=\Tr\left[e^{-\beta H_{0}}T_{\tau}e^{-\int_{0}^{\beta}d\tau H_{U}(\tau)}\right].
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If we expand the exponential and take care of the time ordering explicitly
+ in the integrals, we get
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Z=\sum_{k=0}^{\infty}\int_{0}^{\beta}d\tau_{1}\ldots\int_{\tau_{k-1}}^{\beta}\Tr\left[e^{-\beta H_{0}}e^{\tau_{k}H_{0}}(-H_{U}(\tau_{k}))\ldots e^{-(\tau_{2}-\tau_{1})H_{0}}(-H_{U}(\tau_{1}))e^{-\tau_{1}H_{0}}\right].
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Let's plug in the Hubbard Hamiltonian from above into Eq 17.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+Z & = & \Tr\left[e^{-NK}e^{-\beta H_{0}}T_{\tau}\exp\int_{0}^{\beta}d\tau\left(\frac{NK}{\beta}-U\sum_{i}\left(n_{i\uparrow}n_{i\downarrow}-\frac{n_{i\uparrow}+n_{i\downarrow}}{2}\right)\right)\right]\\
+ & = & \Tr\left[e^{-NK}e^{-\beta H_{0}}T_{\tau}\exp\int_{0}^{\beta}d\tau\sum_{i}\frac{K}{\beta}\left(1-\frac{\beta U}{K}\left(n_{i\uparrow}n_{i\downarrow}-\frac{n_{i\uparrow}+n_{i\downarrow}}{2}\right)\right)\right]
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where we have extracted the factor of 
+\begin_inset Formula $\frac{K}{\beta}$
+\end_inset
+
+ from 
+\begin_inset Formula $H_{0}$
+\end_inset
+
+, and 
+\begin_inset Formula $n_{i\sigma}=n_{i\sigma}(\tau)$
+\end_inset
+
+.
+ We now apply the following auxiliary field decomposition to factor the
+ interaction terms.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+1-\frac{\beta U}{K}\left(n_{i\uparrow}n_{i\downarrow}-\frac{n_{i\uparrow}+n_{i\downarrow}}{2}\right)=\frac{1}{2}\sum_{s_{i}=\pm1}\exp\left(\gamma s_{i}\left(n_{i\uparrow}-n_{i\downarrow}\right)\right)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\cosh\left(\gamma\right)=1+\frac{U\beta}{2K}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Each of the operators 
+\begin_inset Formula $n_{i\sigma}$
+\end_inset
+
+can only assume the values zero or one, so one can directly verify this
+ relation for the four possible local states (possible occupations of site
+ 
+\begin_inset Formula $i$
+\end_inset
+
+).
+ Plugging this into the partition function yields
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Z=\Tr\left[e^{-NK}e^{-\beta H_{0}}T_{\tau}\exp\int_{0}^{\beta}d\tau\sum_{i}\left(\frac{K}{2\beta}\sum_{s_{i}=\pm1}\exp\left(\gamma s_{i}\left(n_{i\uparrow}(\tau)-n_{i\downarrow}(\tau)\right)\right)\right)\right]
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now we drop the constant factor 
+\begin_inset Formula $e^{-NK}$
+\end_inset
+
+ and expand the exponential as in Eq 18.
+\begin_inset Formula 
+\begin{eqnarray*}
+Z & = & \Tr[e^{-\beta H_{0}}\sum_{k=0}^{\infty}\int_{0}^{\beta}d\tau_{1}\ldots\int_{\tau_{k-1}}^{\beta}d\tau_{k}\left(\frac{K}{2\beta}\right)^{k}e^{\tau_{k}H_{0}}\left(\sum_{i_{k},s_{i_{k}}}\exp\left(\gamma s_{i_{k}}\left(n_{i_{k}\uparrow}(\tau)-n_{i_{k}\downarrow}(\tau)\right)\right)\right)\ldots\\
+ & \times & e^{-(\tau_{2}-\tau_{1})H_{0}}\left(\sum_{i_{1},s_{i_{1}}}\exp\left(\gamma s_{i_{1}}\left(n_{i_{1}\uparrow}(\tau)-n_{i_{1}\downarrow}(\tau)\right)\right)\right)e^{-\tau_{1}H_{0}}]\\
+ & = & \sum_{k=0}^{\infty}\sum_{i_{k},\ldots i_{1}}\sum_{s_{i_{k}},\ldots s_{i_{1}}=\pm1}\int_{0}^{\beta}d\tau_{1}\ldots\int_{\tau_{k-1}}^{\beta}d\tau_{k}\left(\frac{K}{2\beta}\right)^{k}Z_{k}\left(\left\{ i_{j},s_{i_{j}},\tau_{j}\right\} \right)
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+Z_{k}\left(\left\{ i_{j},s_{i_{j}},\tau_{j}\right\} \right)=\Tr\left[\prod_{j=k}^{1}\exp\left(-\Delta\tau_{j}H_{0}\right)\exp\left(\gamma s_{i_{j}}\left(n_{i_{j}\uparrow}-n_{i_{j}\downarrow}\right)\right)\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+Z_{0}=\Tr\left[e^{-\beta H_{0}}\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $\Delta\tau_{j}=\tau_{j+1}-\tau_{j}$
+\end_inset
+
+ for 
+\begin_inset Formula $i<k$
+\end_inset
+
+ and 
+\begin_inset Formula $\Delta\tau_{k}=\beta-\tau_{k}+\tau_{1}$
+\end_inset
+
+.
+ (The cyclic property of the trace is used to move the 
+\begin_inset Formula $e^{-\tau_{1}H_{0}}$
+\end_inset
+
+ term over to the right.)
+\end_layout
+
+\begin_layout Standard
+It is now possible to compute the partition function by sampling this series
+ with Monte Carlo.
+ The sampled configurations consist of a set of sites, 
+\begin_inset Formula $i_{j}$
+\end_inset
+
+, a set of imaginary times, 
+\begin_inset Formula $\tau_{j}$
+\end_inset
+
+, and a set of auxilliary spins for each site, 
+\begin_inset Formula $s_{i_{j}}$
+\end_inset
+
+.
+ In each case, the number of elements in the set is equal to the order of
+ the term in the series, 
+\begin_inset Formula $k$
+\end_inset
+
+.
+ However, we first need to be able to calculate 
+\begin_inset Formula $Z_{k}$
+\end_inset
+
+, which is the trace of a product of single particle operators.
+ An identity that helps us do that is
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\Tr_{c_{i}^{\dagger},c_{i}}\left\{ e^{-\sum_{ij}c_{i}^{\dagger}A_{ij}c_{j}}e^{-\sum_{ij}c_{i}^{\dagger}B_{ij}c_{j}}e^{-\sum_{ij}c_{i}^{\dagger}C_{ij}c_{j}}\right\} =\det\left(1+e^{-A}e^{-B}e^{-C}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This is supposed to hold for an arbitrary number of single particle operators,
+ not just this case in which there are three.
+ Let's try to prove this.
+ Using the occupation basis, we have
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+\Tr\left\{ e^{-\sum_{ij}c_{i}^{\dagger}A_{ij}c_{j}}e^{-\sum_{ij}c_{i}^{\dagger}B_{ij}c_{j}}e^{-\sum_{ij}c_{i}^{\dagger}C_{ij}c_{j}}\right\}  & = & \prod_{i}(\left\langle 0_{i}|e^{-c_{i}^{\dagger}A_{ii}c_{i}}e^{-c_{i}^{\dagger}B_{ii}c_{i}}e^{-c_{i}^{\dagger}C_{ii}c_{i}}|0_{i}\right\rangle +\\
+ &  & \left\langle 1_{i}|e^{-c_{i}^{\dagger}A_{ii}c_{i}}e^{-c_{i}^{\dagger}B_{ii}c_{i}}e^{-c_{i}^{\dagger}C_{ii}c_{i}}|1_{i}\right\rangle )\\
+ & = & \prod_{i}\left(1+e^{-A_{ii}}e^{-B_{ii}}e^{-C_{ii}}\right)=\det\left(1+e^{-A}e^{-B}e^{-C}\right)
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since in the occupation basis the single particle operators are diagonal
+ (so the determinant is equal to the product of the diagonal elements) and
+ the determinant is basis independent.
+ In our case, the up and down spin sectors of the Hamiltonian are independent.
+ This allows us to factorize the trace as a product of the spin up and down
+ sectors.
+ Therefore,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+Z_{k}\left(\left\{ i_{j},s_{i_{j}},\tau_{j}\right\} \right) & = & Z_{k\uparrow}\left(\left\{ i_{j},s_{i_{j}},\tau_{j}\right\} \right)Z_{k\downarrow}\left(\left\{ i_{j},s_{i_{j}},\tau_{j}\right\} \right)\\
+ & = & \det\left(1+\prod_{j=k}^{1}\exp\left(-\Delta\tau_{j}H_{0\uparrow}\right)\exp\left(\gamma s_{i_{j}}n_{i_{j}\uparrow}\right)\right)\det\left(1+\prod_{j=k}^{1}\exp\left(-\Delta\tau_{j}H_{0\downarrow}\right)\exp\left(-\gamma s_{i_{j}}n_{i_{j}\downarrow}\right)\right)
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
